@@ -238,7 +238,8 @@
             "[concat('hidden-related:', '/subscriptions/', subscription().subscriptionId,'/resourcegroups/', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]":"empty"
          },
          "dependsOn":[
-            "[concat('Microsoft.Web/serverFarms/', parameters('hostingPlanName'))]"
+            "[concat('Microsoft.Web/serverFarms/', parameters('hostingPlanName'))]",
+            "[concat('Microsoft.Storage/storageAccounts/', parameters('storageName'))]"
          ],
          "properties":{
             "name":"[parameters('siteName')]",
