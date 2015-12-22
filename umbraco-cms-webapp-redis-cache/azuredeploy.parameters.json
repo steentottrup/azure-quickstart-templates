@@ -16,6 +16,12 @@
         },
         "administratorLoginPassword": {
             "value": "pa$$w0rd"
+        },
+        "databaseName": {
+            "value": "mydb"
+        },
+        "edition": { 
+            "value": "Standard"
         }
     }
 }

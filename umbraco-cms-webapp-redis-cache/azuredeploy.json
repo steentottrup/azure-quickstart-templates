@@ -37,6 +37,23 @@
             "metadata": {
                 "description": "Database admin user password"
             }
+        },
+        "databaseName": {
+            "type": "string",
+            "metadata": {
+                "description": "Database Name"
+            }
+        },
+        "edition": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "SQL DB Sku : Standard,Premium"
+            }
         }
     },
     "variables": {
@@ -52,6 +69,46 @@
             "properties": {
                 "accountType": "[parameters('storageAccountType')]"
             }
+        },
+        {
+            "apiVersion": "2.0",
+            "name": "[parameters('serverName')]",
+            "type": "Microsoft.Sql/servers",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+            },
+            "resources": [
+                {
+                    "apiVersion": "2.0",
+                    "name": "[parameters('databaseName')]",
+                    "type": "databases",
+                    "location": "[resourceGroup().location]",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                    ],
+                    "properties": {
+                        "edition": "[parameters('edition')]",
+                        "collation": "SQL_Latin1_General_CP1_CI_AS",
+                        "maxSizeBytes": "1073741824",
+                        "requestedServiceObjectiveId": "910b4fcb-8a29-4c3e-958f-f7ba794388b2"
+                    }
+                },
+                {
+                    "apiVersion": "2.0",
+                    "name": "AllowAllWindowsAzureIps",
+                    "type": "firewallrules",
+                    "location": "[resourceGroup().location]",
+                    "dependsOn": [
+                        "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
+                    ],
+                    "properties": {
+                        "endIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
+                    }
+                }
+            ]
         }
     ]
 }
