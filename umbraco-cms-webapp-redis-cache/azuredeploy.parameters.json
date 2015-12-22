@@ -1,12 +1,21 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "storageAccountNamePrefix": {
-      "value": "GEN_UNIQUE"
-    },
-    "storageAccountType": {
-      "value": "Standard_GRS"
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "siteName": {
+            "value": "mysite"
+        },
+        "serverName": {
+            "value": "sqlserver"
+        },
+        "storageAccountType": {
+            "value": "Standard_GRS"
+        },
+        "administratorLogin": {
+            "value": "sqlserveradmin"
+        },
+        "administratorLoginPassword": {
+            "value": "pa$$w0rd"
+        }
     }
-  }
 }

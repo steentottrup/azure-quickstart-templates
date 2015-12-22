@@ -1,39 +1,57 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "storageAccountNamePrefix": {
-      "type": "string",
-      "maxLength": 11,
-      "metadata": {
-        "description": "Name prefix of the Storage Account"
-      }
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "siteName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the web site"
+            }
+        },
+        "storageAccountType": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_ZRS"
+            ],
+            "metadata": {
+                "description": "Storage Account type"
+            }
+        },
+        "serverName": {
+            "type": "string",
+            "metadata": {
+                "description": "SQL Azure DB Server name"
+            }
+        },
+        "administratorLogin": {
+            "type": "string",
+            "metadata": {
+                "description": "SQL Azure DB administrator user login"
+            }
+        },
+        "administratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Database admin user password"
+            }
+        }
     },
-    "storageAccountType": {
-      "type": "string",
-      "defaultValue": "Standard_LRS",
-      "allowedValues": [
-        "Standard_LRS",
-        "Standard_GRS",
-        "Standard_ZRS"
-      ],
-      "metadata": {
-        "description": "Storage Account type"
-      }
-    }
-  },
-  "variables": {
-    "storageAccountName": "[replace(replace(tolower(concat(parameters('storageAccountNamePrefix'), uniquestring(resourceGroup().id))), '-',''),'.','')]"
-  },
-  "resources": [
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('storageAccountName')]",
-      "apiVersion": "2015-06-15",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "accountType": "[parameters('storageAccountType')]"
-      }
-    }
-  ]
+    "variables": {
+        "storageAccountName": "[replace(replace(tolower(concat(parameters('siteName'), uniquestring(resourceGroup().id))), '-',''),'.','')]",
+        "hostingPlanName": "[concat(parameters('siteName'), 'plan')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccountName')]",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "accountType": "[parameters('storageAccountType')]"
+            }
+        }
+    ]
 }
