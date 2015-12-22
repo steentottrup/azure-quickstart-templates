@@ -20,8 +20,11 @@
         "databaseName": {
             "value": "mydb"
         },
-        "edition": { 
+        "edition": {
             "value": "Standard"
+        },
+        "requestedServiceObjectiveName": { 
+            "value": "Shared"
         }
     }
 }

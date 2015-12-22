@@ -48,11 +48,32 @@
             "type": "string",
             "defaultValue": "Standard",
             "allowedValues": [
+                "Web",
+                "Business",
+                "Basic",
                 "Standard",
                 "Premium"
             ],
             "metadata": {
                 "description": "SQL DB Sku : Standard,Premium"
+            }
+        },
+        "requestedServiceObjectiveName": {
+            "type": "string",
+            "defaultValue": "S0",
+            "allowedValues": [
+                "Shared",
+                "Basic",
+                "S0",
+                "S1",
+                "S2",
+                "S3",
+                "P1",
+                "P2",
+                "P3"
+            ],
+            "metadata": {
+                "description": "The name corresponding to the performance level for edition. The available options are: Shared, Basic, S0, S1, S2, S3, P1, P2, and P3."
             }
         }
     },
@@ -92,7 +113,7 @@
                         "edition": "[parameters('edition')]",
                         "collation": "SQL_Latin1_General_CP1_CI_AS",
                         "maxSizeBytes": "1073741824",
-                        "requestedServiceObjectiveId": "Basic"
+                        "requestedServiceObjectiveId": "[parameters('requestedServiceObjectiveName')]"
                     }
                 },
                 {
