@@ -57,7 +57,7 @@
         }
     },
     "variables": {
-        "storageAccountName": "[replace(replace(tolower(concat(parameters('siteName'), uniquestring(resourceGroup().id))), '-',''),'.','')]",
+        "storageAccountName": "[tolower(parameters('siteName'))]",
         "hostingPlanName": "[concat(parameters('siteName'), 'plan')]"
     },
     "resources": [
@@ -92,7 +92,7 @@
                         "edition": "[parameters('edition')]",
                         "collation": "SQL_Latin1_General_CP1_CI_AS",
                         "maxSizeBytes": "1073741824",
-                        "requestedServiceObjectiveId": "910b4fcb-8a29-4c3e-958f-f7ba794388b2"
+                        "requestedServiceObjectiveId": "Basic"
                     }
                 },
                 {
